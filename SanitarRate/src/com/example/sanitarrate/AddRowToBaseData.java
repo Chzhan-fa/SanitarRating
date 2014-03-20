@@ -1,6 +1,7 @@
 package com.example.sanitarrate;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.View;
@@ -59,15 +60,17 @@ public class AddRowToBaseData extends Activity implements OnClickListener {
 	private void addToDB() {
 		boolean worked = false;
 		try {
-			String name = editRoom.getText().toString();
-			String hotness = editRate.getText().toString();
-			int rate = Integer.parseInt(hotness);
-			if (rate > 0 && rate < 6 && name != "") {
+			String room = editRoom.getText().toString();
+			String rate = editRate.getText().toString();
+			Intent watch = new Intent(getBaseContext(), WatchBaseData.class);
+			int rates = Integer.parseInt(rate);
+			if (rates > 0 && rates < 6 && room != "") {
 				worked = true;
 				DataBaseHelper entry = new DataBaseHelper(this);
 				entry.open();
-				entry.AddRow(name, rate);
+				entry.AddRow(room, rates);
 				entry.CloseDb();
+				startActivity(watch);
 			} else
 				showDialog("Ïîæàëóéñòà ââåäèòå öèôğó îò 1 äî 5");
 		} catch (Exception e) {

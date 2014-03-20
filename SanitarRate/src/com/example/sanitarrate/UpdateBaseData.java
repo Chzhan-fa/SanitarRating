@@ -36,10 +36,10 @@ public class UpdateBaseData extends Activity implements OnClickListener {
 		Bundle extras = getIntent().getExtras();
 		key = extras.getInt("id");
 		
-		String name = extras.getString("name");
+		String room = extras.getString("room");
 		String rate = extras.getString("rate");
 
-		tvname.setText(name);
+		tvname.setText(room);
 		editRate.setText(rate);
 	}
 
@@ -87,7 +87,12 @@ public class UpdateBaseData extends Activity implements OnClickListener {
 			rate = editRate.getText().toString();
 			helper.UpdateRow(key, rate);
 			helper.CloseDb();
-			showDialog("База данных обновлена");
+			if (rate != null) {
+				showDialog("База данных обновлена");
+			}
+			else {
+				showDialog("null");
+			}
 			finish();
 		} catch (Exception e) {
 			showDialog(e.toString());

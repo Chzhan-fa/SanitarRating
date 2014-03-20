@@ -7,6 +7,7 @@ import android.database.Cursor;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.widget.Toast;
 
 public class DataBaseHelper {
 	
@@ -74,16 +75,16 @@ public class DataBaseHelper {
 				null, null,KEY_RATE + " desc");
 
 		int irow = cursor.getColumnIndex(KEY_ROWID);
-		int iname = cursor.getColumnIndex(KEY_ROOM);
-		int ihotness = cursor.getColumnIndex(KEY_RATE);
+		int iroom = cursor.getColumnIndex(KEY_ROOM);
+		int irate = cursor.getColumnIndex(KEY_RATE);
 
 		for (cursor.moveToFirst(); !cursor.isAfterLast(); cursor.moveToNext()) {
 			String id = cursor.getString(irow);
-			String name = cursor.getString(iname);
-			String hotness = cursor.getString(ihotness);
+			String room = cursor.getString(iroom);
+			String rate = cursor.getString(irate);
 			list.add(id);
-			list.add(name);
-			list.add(hotness);
+			list.add(room);
+			list.add(rate);
 
 		}
 		cursor.close();
@@ -94,12 +95,14 @@ public class DataBaseHelper {
 		ContentValues cvupdate = new ContentValues();
 		cvupdate.put(KEY_RATE, rate);
 		ourDatabase.update(DATABASE_TABLE, cvupdate, KEY_ROWID + "=" + key, null);	
+
 	}
 
 	public void DeleteRow(int key)  throws SQLException {
 		ourDatabase.delete(DATABASE_TABLE, KEY_ROWID + "=" + key, null);	
 	}
 	
+
 	
 	
 }

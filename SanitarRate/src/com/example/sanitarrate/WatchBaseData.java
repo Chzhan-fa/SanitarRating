@@ -32,7 +32,7 @@ public class WatchBaseData extends Activity implements OnClickListener {
 		int leng = list.size();
 		
 		if(leng==0) {
-			showDialog("Database is empty");
+			showDialog("База пуста");
 			finish();
 		}
 		else showDialog("Нажмите по строке для редактирования/удаления");
@@ -41,16 +41,14 @@ public class WatchBaseData extends Activity implements OnClickListener {
 
 		int it = 0;
 
-		TableLayout hotness_table = (TableLayout) findViewById(R.id.rate_table);
-		hotness_table.removeAllViews();
+		TableLayout rate_table = (TableLayout) findViewById(R.id.rate_table);
+		rate_table.removeAllViews();
 		while (it < leng) {
-			
 			TableRow tr = new TableRow(this);
 			//tr.setLayoutParams(new TableRow.LayoutParams(TableRow.LayoutParams.WRAP_CONTENT, 80));
 			int id=Integer.parseInt(list.get(it));
 			tr.setId(id);
 			tr.setOnClickListener(this);
-			
 			TextView key = new TextView(this);
 			key.setText(list.get(it++));
 			key.setTextSize(TEXT_SIZE);
@@ -72,8 +70,8 @@ public class WatchBaseData extends Activity implements OnClickListener {
 			v.setLayoutParams(new TableRow.LayoutParams(TableRow.LayoutParams.MATCH_PARENT, 1));
 			v.setBackgroundColor(Color.rgb(0, 0, 0));
 			//add the table row and the line to the Table
-			hotness_table.addView(tr);
-			hotness_table.addView(v);
+			rate_table.addView(tr);
+			rate_table.addView(v);
 			
 		}
 		
@@ -98,16 +96,16 @@ public class WatchBaseData extends Activity implements OnClickListener {
 		int id = arg0.getId();
 		
 		TableRow tr = (TableRow) arg0;
-		TextView name = (TextView) tr.getChildAt(0);
-		String sname=name.getText().toString();
+		TextView room = (TextView) tr.getChildAt(0);
+		String sroom=room.getText().toString();
 		
-		TextView hotness = (TextView) tr.getChildAt(1);
-		String shotness=hotness.getText().toString();
+		TextView rate = (TextView) tr.getChildAt(1);
+		String srate=rate.getText().toString();
 		
 		Intent i = new Intent(this, UpdateBaseData.class);
 		i.putExtra("id", id);
-		i.putExtra("name", sname);
-		i.putExtra("hotness", shotness);
+		i.putExtra("room", sroom);
+		i.putExtra("rate", srate);
 		startActivity(i);		
 	}
 	
