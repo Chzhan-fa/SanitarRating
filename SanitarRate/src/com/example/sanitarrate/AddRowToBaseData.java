@@ -11,8 +11,8 @@ import android.widget.Toast;
 
 public class AddRowToBaseData extends Activity implements OnClickListener {
 
-	EditText editName;
-	EditText editHotness;
+	EditText editRoom;
+	EditText editRate;
 	Button back;
 	Button add;
 
@@ -26,8 +26,8 @@ public class AddRowToBaseData extends Activity implements OnClickListener {
 		back = (Button) findViewById(R.id.bback);
 		back.setOnClickListener(this);
 
-		editName = (EditText) findViewById(R.id.editRoom);
-		editHotness = (EditText) findViewById(R.id.editRate);
+		editRoom = (EditText) findViewById(R.id.editRoom);
+		editRate = (EditText) findViewById(R.id.editRate);
 		
 
 	}
@@ -59,20 +59,17 @@ public class AddRowToBaseData extends Activity implements OnClickListener {
 	private void addToDB() {
 		boolean worked = false;
 		try {
-			String name = editName.getText().toString();
-			String hotness = editHotness.getText().toString();
-			int hot = Integer.parseInt(hotness);
-			if (hot > 0 && hot < 11 && name != "") {
-				
-				
+			String name = editRoom.getText().toString();
+			String hotness = editRate.getText().toString();
+			int rate = Integer.parseInt(hotness);
+			if (rate > 0 && rate < 6 && name != "") {
 				worked = true;
 				DataBaseHelper entry = new DataBaseHelper(this);
-
 				entry.open();
-				entry.AddRow(name, hot);
+				entry.AddRow(name, rate);
 				entry.CloseDb();
 			} else
-				showDialog("Пожалуйста введите цифру от 1 до 10");
+				showDialog("Пожалуйста введите цифру от 1 до 5");
 		} catch (Exception e) {
 			worked = false;
 		} finally {
@@ -92,7 +89,6 @@ public class AddRowToBaseData extends Activity implements OnClickListener {
 
 	private void showDialog(String s) {
 		Toast.makeText(this, s, Toast.LENGTH_LONG).show();
-
 	}
 
 }
