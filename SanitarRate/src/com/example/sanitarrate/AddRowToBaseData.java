@@ -3,7 +3,6 @@ package com.example.sanitarrate;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.Menu;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
@@ -11,7 +10,7 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 public class AddRowToBaseData extends Activity implements OnClickListener {
-
+	// Описание переменных
 	EditText editRoom;
 	EditText editRate;
 	Button back;
@@ -21,16 +20,12 @@ public class AddRowToBaseData extends Activity implements OnClickListener {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_addrow);
-
 		add = (Button) findViewById(R.id.badd);
 		add.setOnClickListener(this);
 		back = (Button) findViewById(R.id.bback);
 		back.setOnClickListener(this);
-
 		editRoom = (EditText) findViewById(R.id.editRoom);
 		editRate = (EditText) findViewById(R.id.editRate);
-		
-
 	}
 
 /*	@Override
@@ -38,25 +33,22 @@ public class AddRowToBaseData extends Activity implements OnClickListener {
 		getMenuInflater().inflate(R.menu.addrow, menu);
 		return true;
 	}*/
-
+	// Функция отклика при нажатиях клавиш
 	@Override
 	public void onClick(View arg0) {
 		switch (arg0.getId()) {
 		case R.id.badd:
 			addToDB();
-
 			break;
-
 		case R.id.bback:
 			finish();
 			break;
 		default:
 			break;
-
 		}
 
 	}
-
+	// Функция добавления данных в БД
 	private void addToDB() {
 		boolean worked = false;
 		try {
@@ -84,14 +76,11 @@ public class AddRowToBaseData extends Activity implements OnClickListener {
 				 * d.setContentView(tv); d.show();
 				 */
 				showDialog("Действие успешно выполнено");
-
 			}
 		}
-
 	}
-
+	// Функция вывода диалога
 	private void showDialog(String s) {
 		Toast.makeText(this, s, Toast.LENGTH_LONG).show();
 	}
-
 }

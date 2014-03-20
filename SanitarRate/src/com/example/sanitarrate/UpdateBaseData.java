@@ -1,11 +1,7 @@
 package com.example.sanitarrate;
 
 import android.app.Activity;
-import android.content.Intent;
-
 import android.os.Bundle;
-import android.provider.ContactsContract;
-import android.view.Menu;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
@@ -61,7 +57,6 @@ public class UpdateBaseData extends Activity implements OnClickListener {
 			break;
 		default:
 			break;
-
 		}
 	}
 
@@ -75,9 +70,7 @@ public class UpdateBaseData extends Activity implements OnClickListener {
 			finish();
 		} catch (Exception e) {
 			showDialog(e.toString());
-
 		}
-
 	}
 
 	private void UpdateRate() {
@@ -96,13 +89,10 @@ public class UpdateBaseData extends Activity implements OnClickListener {
 			finish();
 		} catch (Exception e) {
 			showDialog(e.toString());
-
 		}
-
 	}
 
 	private void showDialog(String s) {
 		Toast.makeText(this, s, Toast.LENGTH_LONG).show();
 	}
-
 }

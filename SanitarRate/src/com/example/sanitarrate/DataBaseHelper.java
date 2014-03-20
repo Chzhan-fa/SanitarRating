@@ -1,35 +1,34 @@
 package com.example.sanitarrate;
-import java.util.ArrayList;
 
+import java.util.ArrayList;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
-import android.widget.Toast;
 
 public class DataBaseHelper {
 	
-	public static final String KEY_ROWID = "_id";
-	public static final String KEY_ROOM = "room";
-	public static final String KEY_RATE = "rate";
+	public static final String KEY_ROWID = "_id";              // id
+	public static final String KEY_ROOM = "room";              // Номер комнаты
+	public static final String KEY_RATE = "rate";              // Оценка
 	
-	public static final String DATABASE_NAME = "SanitarRate";
-	public static final String DATABASE_TABLE = "List";
-	public static final int DATABASE_VERSION = 1;
+	public static final String DATABASE_NAME = "SanitarRate";  // Имя БД
+	public static final String DATABASE_TABLE = "List";        // Вид БД
+	public static final int DATABASE_VERSION = 1;              // Версия БД
 	
 	private final Context ourContext;
 	private DBHelper ourHelper;
 	private SQLiteDatabase ourDatabase;
 	
 	private static class DBHelper extends SQLiteOpenHelper {
-	
+		// Конструктор класса DBHelper
 		public DBHelper(Context context) {
 			super(context, DATABASE_NAME, null, DATABASE_VERSION);
 			// TODO Auto-generated constructor stub
 		}
-
+		// Функция запуска
 		@Override
 		public void onCreate(SQLiteDatabase db) {
 			// TODO Auto-generated method stub
@@ -38,7 +37,7 @@ public class DataBaseHelper {
 				+ " TEXT NOT NULL, " + KEY_RATE + " Integer);"
 		    );
 		}
-
+		// Функция обновления БД
 		@Override
 		public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
 			// TODO Auto-generated method stub
@@ -46,28 +45,28 @@ public class DataBaseHelper {
 			onCreate(db);
 		}
 	}
-	
+	// Конструкторы класса DataBaseHelper
 	public DataBaseHelper(Context context) {
 		ourContext = context;
 	}
-	
+	// Функция открытия БД
 	public DataBaseHelper open() throws SQLException {
 		ourHelper = new DBHelper(ourContext);
 		ourDatabase = ourHelper.getWritableDatabase();
 		return this;
 	}
-	
+	// Функция закрытия БД
 	public void CloseDb() {
 		ourHelper.close();
 	}
-	
+	// Функция добавления строки в БД
 	public long AddRow(String name, int rate) {
 		ContentValues cv = new ContentValues();
 		cv.put(KEY_ROOM, name);
 		cv.put(KEY_RATE, rate);
 		return ourDatabase.insert(DATABASE_TABLE, null, cv);
 	}
-	
+	// Список результатов
 	public ArrayList<String> GetDBContent() {
 		ArrayList<String> list = new ArrayList<String>();
 		String[] columns = new String[] { KEY_ROWID, KEY_ROOM, KEY_RATE };
@@ -90,19 +89,15 @@ public class DataBaseHelper {
 		cursor.close();
 		return list;
 	}
-	
+	// Функция обновления строки в БД
 	public void UpdateRow(int key, String rate)  throws SQLException {
 		ContentValues cvupdate = new ContentValues();
 		cvupdate.put(KEY_RATE, rate);
 		ourDatabase.update(DATABASE_TABLE, cvupdate, KEY_ROWID + "=" + key, null);	
 
 	}
-
+	// Функция удаления строки в БД
 	public void DeleteRow(int key)  throws SQLException {
 		ourDatabase.delete(DATABASE_TABLE, KEY_ROWID + "=" + key, null);	
-	}
-	
-
-	
-	
+	}	
 }
