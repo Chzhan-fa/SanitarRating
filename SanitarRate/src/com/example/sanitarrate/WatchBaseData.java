@@ -35,7 +35,6 @@ public class WatchBaseData extends Activity implements OnClickListener {
 			showDialog("База пуста");
 			finish();
 		}
-		else showDialog("Нажмите по строке для редактирования/удаления");
 		
 		dbconnect.CloseDb();
 
