@@ -71,7 +71,7 @@ public class DataBaseHelper {
 		ArrayList<String> list = new ArrayList<String>();
 		String[] columns = new String[] { KEY_ROWID, KEY_ROOM, KEY_RATE };
 		Cursor cursor = ourDatabase.query(DATABASE_TABLE, columns, null, null,
-				null, null,KEY_RATE + " desc");
+				null, null, KEY_RATE + " desc");
 
 		int irow = cursor.getColumnIndex(KEY_ROWID);
 		int iroom = cursor.getColumnIndex(KEY_ROOM);
