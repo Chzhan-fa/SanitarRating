@@ -16,7 +16,7 @@
         android:layout_margin="10dip"
         android:paddingBottom="10dip"
         android:paddingTop="10dip"
-        android:text="Просмотр"
+        android:text="Просмотр таблицы"
         android:textSize="20sp"
         android:textStyle="bold" />
 
@@ -29,8 +29,9 @@
         android:layout_margin="10dip"
         android:paddingBottom="10dip"
         android:paddingTop="10dip"
-        android:text="Добавить"
+        android:text="Добавить комнату"
         android:textSize="20sp"
         android:textStyle="bold" />
+
 
 </RelativeLayout>

@@ -2,7 +2,7 @@
 <resources>
 
     <string name="app_name">SanitarRate</string>
-    <string name="action_settings">Settings</string>
+    <string name="action_settings">Import to Excel</string>
     <string name="hello_world">Hello world!</string>
 
 </resources>

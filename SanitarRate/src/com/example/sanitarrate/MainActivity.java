@@ -3,12 +3,17 @@ package com.example.sanitarrate;
 import android.os.Bundle;
 import android.app.Activity;
 import android.content.Intent;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.view.View.OnClickListener;
 
 public class MainActivity extends Activity implements OnClickListener {
 
+	DataBaseHelper helper;
+	public static final int MENU_EXIT = Menu.FIRST;
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -19,12 +24,25 @@ public class MainActivity extends Activity implements OnClickListener {
 		addButton.setOnClickListener(this);
 	}
 
-	/*@Override
+	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
-		// Inflate the menu; this adds items to the action bar if it is present.
-		getMenuInflater().inflate(R.menu.main, menu);
+		super.onCreateOptionsMenu(menu);
+	    menu.add(Menu.NONE, MENU_EXIT, Menu.NONE, "Выход");
 		return true;
-	}*/
+	}
+	
+	@Override
+    public boolean onOptionsItemSelected(MenuItem item)
+    {
+		switch(item.getItemId())
+        {
+            case MENU_EXIT:
+            	finish();
+                return true;
+            default:
+            	return super.onOptionsItemSelected(item);
+        }
+    }
 	
 	@Override
 	public void onClick(View arg0) {

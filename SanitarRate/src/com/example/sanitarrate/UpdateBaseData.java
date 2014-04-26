@@ -36,15 +36,8 @@ public class UpdateBaseData extends Activity implements OnClickListener {
 		String rate = extras.getString("rate");
 
 		tvname.setText(room);
-		editRate.setText(rate);
+		//editRate.setText(rate);
 	}
-
-	/*@Override
-	public boolean onCreateOptionsMenu(Menu menu) {
-		// Inflate the menu; this adds items to the action bar if it is present.
-		getMenuInflater().inflate(R.menu.activity_update, menu);
-		return true;
-	}*/
 
 	@Override
 	public void onClick(View v) {
@@ -63,7 +56,7 @@ public class UpdateBaseData extends Activity implements OnClickListener {
 	private void DeleteRoom() {
 		try {
 			helper = new DataBaseHelper(this);
-			helper.open();
+			helper.Open();
 			helper.DeleteRow(key);
 			helper.CloseDb();
 			showDialog("Комната удалена");
@@ -76,7 +69,7 @@ public class UpdateBaseData extends Activity implements OnClickListener {
 	private void UpdateRate() {
 		try {
 			helper = new DataBaseHelper(this);
-			helper.open();
+			helper.Open();
 			rate = editRate.getText().toString();
 			helper.UpdateRow(key, rate);
 			helper.CloseDb();

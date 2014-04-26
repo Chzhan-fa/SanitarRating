@@ -5,5 +5,6 @@
 	<classpathentry exported="true" kind="con" path="com.android.ide.eclipse.adt.DEPENDENCIES"/>
 	<classpathentry kind="src" path="src"/>
 	<classpathentry kind="src" path="gen"/>
+	<classpathentry kind="lib" path="C:/Users/dafunk/git/Excel2Sqlite/libs/poi-3.8-20120326.jar"/>
 	<classpathentry kind="output" path="bin/classes"/>
 </classpath>

@@ -7,15 +7,20 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 public class AddRowToBaseData extends Activity implements OnClickListener {
-	// Îïèñàíèå ïåğåìåííûõ
+	
 	EditText editRoom;
 	EditText editRate;
 	Button back;
 	Button add;
+	Button excel;
+	TextView tvInfo;
 
+	final String myTag = "DocsUpload";
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -28,17 +33,13 @@ public class AddRowToBaseData extends Activity implements OnClickListener {
 		editRate = (EditText) findViewById(R.id.editRate);
 	}
 
-/*	@Override
-	public boolean onCreateOptionsMenu(Menu menu) {
-		getMenuInflater().inflate(R.menu.addrow, menu);
-		return true;
-	}*/
-	// Ôóíêöèÿ îòêëèêà ïğè íàæàòèÿõ êëàâèø
+	// Click Handler
 	@Override
 	public void onClick(View arg0) {
+		//Intent watch = new Intent(getBaseContext(), WatchBaseData.class);
 		switch (arg0.getId()) {
 		case R.id.badd:
-			addToDB();
+			AddToDB();
 			break;
 		case R.id.bback:
 			finish();
@@ -48,8 +49,9 @@ public class AddRowToBaseData extends Activity implements OnClickListener {
 		}
 
 	}
-	// Ôóíêöèÿ äîáàâëåíèÿ äàííûõ â ÁÄ
-	private void addToDB() {
+
+	// Add to db func
+	private void AddToDB() {
 		boolean worked = false;
 		try {
 			String room = editRoom.getText().toString();
@@ -59,27 +61,23 @@ public class AddRowToBaseData extends Activity implements OnClickListener {
 			if (rates > 0 && rates < 6 && room != "") {
 				worked = true;
 				DataBaseHelper entry = new DataBaseHelper(this);
-				entry.open();
+				entry.Open();
 				entry.AddRow(room, rates);
 				entry.CloseDb();
 				startActivity(watch);
+				finish();
 			} else
 				showDialog("Ïîæàëóéñòà ââåäèòå öèôğó îò 1 äî 5");
 		} catch (Exception e) {
 			worked = false;
 		} finally {
 			if (worked) {
-				/*
-				 * Dialog d = new Dialog(this); d.setTitle("Added to Database");
-				 * TextView tv = new TextView(this);
-				 * tv.setText("Entry successfully added to DataBase");
-				 * d.setContentView(tv); d.show();
-				 */
 				showDialog("Äåéñòâèå óñïåøíî âûïîëíåíî");
 			}
 		}
 	}
-	// Ôóíêöèÿ âûâîäà äèàëîãà
+
+	// Show dialog func
 	private void showDialog(String s) {
 		Toast.makeText(this, s, Toast.LENGTH_LONG).show();
 	}

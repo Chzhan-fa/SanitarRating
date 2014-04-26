@@ -23,12 +23,11 @@ public class DataBaseHelper {
 	private SQLiteDatabase ourDatabase;
 	
 	private static class DBHelper extends SQLiteOpenHelper {
-		// Конструктор класса DBHelper
+		// Constructor DBHelper
 		public DBHelper(Context context) {
 			super(context, DATABASE_NAME, null, DATABASE_VERSION);
 			// TODO Auto-generated constructor stub
 		}
-		// Функция запуска
 		@Override
 		public void onCreate(SQLiteDatabase db) {
 			// TODO Auto-generated method stub
@@ -37,7 +36,6 @@ public class DataBaseHelper {
 				+ " TEXT NOT NULL, " + KEY_RATE + " Integer);"
 		    );
 		}
-		// Функция обновления БД
 		@Override
 		public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
 			// TODO Auto-generated method stub
@@ -45,33 +43,38 @@ public class DataBaseHelper {
 			onCreate(db);
 		}
 	}
-	// Конструкторы класса DataBaseHelper
+	
+	// Constructor DataBaseHelper
 	public DataBaseHelper(Context context) {
 		ourContext = context;
 	}
-	// Функция открытия БД
-	public DataBaseHelper open() throws SQLException {
+	// Open bd 
+	public DataBaseHelper Open() throws SQLException {
 		ourHelper = new DBHelper(ourContext);
 		ourDatabase = ourHelper.getWritableDatabase();
 		return this;
 	}
-	// Функция закрытия БД
+	// Close db 
 	public void CloseDb() {
 		ourHelper.close();
 	}
-	// Функция добавления строки в БД
+	// Insert to db
+	public int Insert(String table, ContentValues values) {
+		return (int) ourDatabase.insert(table, null, values);
+	}
+	// Add row to db 
 	public long AddRow(String name, int rate) {
 		ContentValues cv = new ContentValues();
 		cv.put(KEY_ROOM, name);
 		cv.put(KEY_RATE, rate);
 		return ourDatabase.insert(DATABASE_TABLE, null, cv);
 	}
-	// Список результатов
+	// List of results
 	public ArrayList<String> GetDBContent() {
 		ArrayList<String> list = new ArrayList<String>();
 		String[] columns = new String[] { KEY_ROWID, KEY_ROOM, KEY_RATE };
 		Cursor cursor = ourDatabase.query(DATABASE_TABLE, columns, null, null,
-				null, null, KEY_RATE + " desc");
+				null, null, KEY_ROOM);
 
 		int irow = cursor.getColumnIndex(KEY_ROWID);
 		int iroom = cursor.getColumnIndex(KEY_ROOM);
@@ -89,15 +92,45 @@ public class DataBaseHelper {
 		cursor.close();
 		return list;
 	}
-	// Функция обновления строки в БД
+	// Get columns for export to excel
+	public ArrayList<String> GetColumn()
+	{	
+		ArrayList<String> aryColumn = new ArrayList<String>();
+		//Getting Column Name
+		Cursor ti = ourDatabase.rawQuery("PRAGMA table_info(" + DATABASE_TABLE + ")", null);
+		if (ti.moveToFirst()) 
+		{
+		    do
+		    {
+		    	aryColumn.add(ti.getString(1));
+		    }
+		    while (ti.moveToNext());
+		}
+		return aryColumn;
+	}
+
+	// Update row in bd
 	public void UpdateRow(int key, String rate)  throws SQLException {
 		ContentValues cvupdate = new ContentValues();
 		cvupdate.put(KEY_RATE, rate);
 		ourDatabase.update(DATABASE_TABLE, cvupdate, KEY_ROWID + "=" + key, null);	
-
 	}
-	// Функция удаления строки в БД
+	// Delete row in bd
 	public void DeleteRow(int key)  throws SQLException {
 		ourDatabase.delete(DATABASE_TABLE, KEY_ROWID + "=" + key, null);	
 	}	
+	// Delete table of bd
+	public void DeleteTable() throws SQLException {
+		//ourDatabase.execSQL("DELETE FROM SQLITE_SEQUENCE WHERE NAME = '" + DATABASE_TABLE + "'");
+		ourDatabase.delete(DATABASE_TABLE, null, null);
+	}
+	// Export all values of table
+	public Cursor ExportAllItems()
+	{
+		String sql = "SELECT * FROM " + DATABASE_TABLE;
+		Cursor cur = ourDatabase.rawQuery(sql, null);
+		return cur;	
+	}
+	
+	
 }
