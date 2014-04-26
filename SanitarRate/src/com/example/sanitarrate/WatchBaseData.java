@@ -74,7 +74,7 @@ public class WatchBaseData extends Activity implements OnClickListener {
 			TextView key = new TextView(this);
 			key.setText(list.get(it++));
 			key.setTextSize(TEXT_SIZE);
-			tr.addView(key);
+			//Str.addView(key);
 			
 			
 			TextView room = new TextView(this);
